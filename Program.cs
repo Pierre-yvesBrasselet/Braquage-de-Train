@@ -29,7 +29,7 @@
                         cashInChest = number[index];
                         Console.WriteLine("\nVous ouvrez le coffre numéro " + o + " et trouvez " + cashInChest + "$");
                         money = money + cashInChest;
-                        openchests++;f
+                        openchests++;
                     }
                     else
                     {
