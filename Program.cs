@@ -10,31 +10,115 @@
             int money = 0 ;
             int openchests = 0;
             int closedchests = 0;
-            Console.WriteLine("---> Gagne le plus d'argent <--- \n\nUn train arrive et il possède " + numberOfCar + " wagons ! \n\nQuel est ton nom de bandit ?");
+            int life = 2;
+            Console.WriteLine("---> Gagne le plus d'argent et ne mourrez pas <--- \n\nUn train arrive et il possède " + numberOfCar + " wagons !\n\nCertains coffres sont piégés et vous n'avez que 2 vies... \n\nQuel est ton nom de bandit ?");
             string name = Console.ReadLine();
             Console.WriteLine("\nA toi de jouer " + name + " !");
             for (int i = 1; i < numberOfCar + 1; i++)
             {
+                int trap;
+                int difficulty;
+                difficulty = aleatoire.Next(1, 4);
                 numberOfChest = aleatoire.Next(2, 5);
                 Console.WriteLine("\n\n--> Tu approche du wagon numéro " + i + " et il contient " + numberOfChest + " Coffres !!!");
-                for (int o = 1; o < numberOfChest + 1; o++)
+                if (difficulty == 1)
                 {
-                    int cashInChest;
-                    int[] number = { 5, 15, 30, 50, 100 };
-                    int index = aleatoire.Next(0, number.Length);                                   //Permet de chosir un nombre aléatoire a partir d'une certaine liste
-                    Console.WriteLine("\n\n" + o + ": Voulez-vous ouvrir le coffre numéro " + o + " ? (y/n)");
-                    string choice = Console.ReadLine();
-                    if (choice == "y")
+                    Console.WriteLine("La chance vous sourit , ce wagon n'est pas sécurisé !!! ( 0% )");
+                    for (int o = 1; o < numberOfChest + 1; o++)
                     {
-                        cashInChest = number[index];
-                        Console.WriteLine("\nVous ouvrez le coffre numéro " + o + " et trouvez " + cashInChest + "$");
-                        money = money + cashInChest;
-                        openchests++;
+                        int cashInChest;
+                        int[] number = { 5, 15, 30, 50, 100 };
+                        int index = aleatoire.Next(0, number.Length);                                   //Permet de chosir un nombre aléatoire a partir d'une certaine liste
+                        Console.WriteLine("\n\n" + o + ": Voulez-vous ouvrir le coffre numéro " + o + " ? (y/n)");
+                        string choice = Console.ReadLine();
+                        if (choice == "y")
+                        {
+                            cashInChest = number[index];
+                            Console.WriteLine("\nVous ouvrez le coffre numéro " + o + " et trouvez " + cashInChest + "$");
+                            money = money + cashInChest;
+                            openchests++;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Le coffre reste scellé...");
+                            closedchests++;
+                        }
                     }
-                    else
+                }
+                if (difficulty == 2)
+                {
+                    Console.WriteLine("Faites attention celui-ci est partiellement sécurisé ! ( 25% )");
+                    for (int o = 1; o < numberOfChest + 1; o++)
                     {
-                        Console.WriteLine("Le coffre reste scellé...");
-                        closedchests++;
+                        int cashInChest;
+                        int[] number = { 5, 15, 30, 50, 100 };
+                        int index = aleatoire.Next(0, number.Length);                                   //Permet de chosir un nombre aléatoire a partir d'une certaine liste
+                        Console.WriteLine("\n\n" + o + ": Voulez-vous ouvrir le coffre numéro " + o + " ? (y/n)");
+                        string choice = Console.ReadLine();
+                        if (choice == "y")
+                        {
+                            trap = aleatoire.Next(1, 5);
+                            if (trap == 1)
+                            {
+                                life--;
+                                Console.WriteLine("Oh non le coffre était piégé... \nBOOOOOOOOM !!!\nVous perdez une vie , votre nombre de vie est de " + life + " vies...");
+                            }
+                            else
+                            {
+                                cashInChest = number[index];
+                                Console.WriteLine("\nVous ouvrez le coffre numéro " + o + " et trouvez " + cashInChest + "$");
+                                money = money + cashInChest;
+                                openchests++;
+                            }
+                            if (life == 0)
+                            {
+                                Console.WriteLine("Les authoritées ont retrouvés votre cadavre...\n~~~ GAME OVER ~~~");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Le coffre reste scellé...");
+                            closedchests++;
+                        }
+                    }
+                }
+                if (difficulty == 3)
+                {
+                    Console.WriteLine("Le wagon est totalement sécurisé , bonne chance... ( 50 % )");
+                    for (int o = 1; o < numberOfChest + 1; o++)
+                    {
+                        int cashInChest;
+                        int[] number = { 5, 15, 30, 50, 100 };
+                        int index = aleatoire.Next(0, number.Length);                                   //Permet de chosir un nombre aléatoire a partir d'une certaine liste
+                        Console.WriteLine("\n\n" + o + ": Voulez-vous ouvrir le coffre numéro " + o + " ? (y/n)");
+                        string choice = Console.ReadLine();
+                        if (choice == "y")
+                        {
+                            trap = aleatoire.Next(1, 3);
+                            if (trap == 1)
+                            {
+                                life--;
+                                Console.WriteLine("Oh non le coffre était piégé... \nBOOOOOOOOM !!!\nVous perdez une vie , votre nombre de vie est de " + life + " vies...");
+                            }
+                            else
+                            {
+                                cashInChest = number[index];
+                                Console.WriteLine("\nVous ouvrez le coffre numéro " + o + " et trouvez " + cashInChest + "$");
+                                money = money + cashInChest;
+                                openchests++;
+                            }
+                            if (life == 0)
+                            {
+                                Console.WriteLine("Les authoritées ont retrouvés votre cadavre...\n~~~ GAME OVER ~~~");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Le coffre reste scellé...");
+                            closedchests++;
+                        }
                     }
                 }
             }
